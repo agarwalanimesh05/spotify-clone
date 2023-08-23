@@ -2,11 +2,23 @@ import { twMerge } from "tailwind-merge";
 import { TbPlaylist } from "react-icons/tb";
 import { AiOutlinePlus } from "react-icons/ai";
 
+import useAuthModal from "@/hooks/useAuthModal";
+import { useUser } from "@/hooks/useUser";
+import useUploadModal from "@/hooks/useUploadModal";
+
 interface LibraryProps {}
 
 const Library: React.FC<LibraryProps> = ({}) => {
+  const authModal = useAuthModal();
+  const { user } = useUser();
+  const uploadModal = useUploadModal();
+
   const onClick = () => {
-    //handle Upload
+    if (!user) {
+      authModal.onOpen();
+    }
+
+    return uploadModal.onOpen();
   };
 
   return (
